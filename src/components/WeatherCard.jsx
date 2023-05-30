@@ -23,7 +23,7 @@ const WeatherCard = ({ weather, temp, handleSubmit }) => {
             id="inputValue"
             className="inputValue"
             type="text"
-            placeholder="Search City"
+            placeholder="Example: Caracas, VE"
           />
           <button className="search__button">Search</button>
         </form>

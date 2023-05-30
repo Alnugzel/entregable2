@@ -3,7 +3,7 @@ import "./App.css";
 import axios from "axios";
 import WeatherCard from "./components/WeatherCard";
 import Loading from "./components/Loading";
-import CurrentDate from "./components/CurrentDate";
+import Error from "./components/Error";
 
 function App() {
   const apiKey = import.meta.env.VITE_WEATHER_APP_KEY;
@@ -11,6 +11,7 @@ function App() {
   const [weather, setWeather] = useState();
   const [temp, setTemp] = useState();
   const [inputValue, setInputValue] = useState();
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const success = (pos) => {
@@ -20,10 +21,12 @@ function App() {
       };
 
       setCoords(objCoords);
+      setHasError(false);
     };
 
     function error(err) {
       console.warn(`ERROR(${err.code}): ${err.message}`);
+      setHasError(true);
     }
 
     navigator.geolocation.getCurrentPosition(success, error);
@@ -80,7 +83,9 @@ function App() {
 
   return (
     <>
-      {weather ? (
+      {hasError ? (
+        <Error />
+      ) : weather ? (
         <div className="app">
           <WeatherCard
             weather={weather}

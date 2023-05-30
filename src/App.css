@@ -122,6 +122,10 @@ form {
   margin-bottom: 1.5em;
 }
 
+.content__img img {
+  animation: scroll infinite 5s;
+}
+
 .content__info .info {
   display: flex;
   flex-direction: column;
@@ -130,6 +134,7 @@ form {
 
 .info h3 {
   margin-bottom: 0.5em;
+  text-align: center;
 }
 
 .content__info .info .info__list {
@@ -174,6 +179,22 @@ form {
   transform: scale(1.1);
 }
 
+.content__error {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4em;
+  background-color: black;
+}
+
+.content__error .error {
+  text-align: center;
+  color: lightseagreen;
+  font-weight: 900;
+  font-size: 4rem;
+}
+
 .loading {
   position: fixed;
   top: 0;
@@ -187,8 +208,7 @@ form {
   align-items: center;
 }
 
-.loading svg {
-  fill: hsl(354, 78%, 60%);
+.loading img {
   width: 150px;
   animation: scroll 2s infinite;
 }
