@@ -3,12 +3,14 @@ import "./App.css";
 import axios from "axios";
 import WeatherCard from "./components/WeatherCard";
 import Loading from "./components/Loading";
+import CurrentDate from "./components/CurrentDate";
 
 function App() {
   const apiKey = import.meta.env.VITE_WEATHER_APP_KEY;
   const [coords, setCoords] = useState();
   const [weather, setWeather] = useState();
   const [temp, setTemp] = useState();
+  const [inputValue, setInputValue] = useState();
 
   useEffect(() => {
     const success = (pos) => {
@@ -48,11 +50,44 @@ function App() {
     }
   }, [coords]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setInputValue(e.target.inputValue.value.trim());
+    e.target.inputValue.value = "";
+    e.target.inputValue.blur();
+  };
+
+  useEffect(() => {
+    if (weather && inputValue) {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=${apiKey}`;
+      axios
+        .get(url)
+        .then((res) => {
+          setWeather(res.data);
+          const objTemp = {
+            celsius: +(res.data.main.temp - 273.15).toFixed(1),
+            farenheit: +((res.data.main.temp - 273.15) * (9 / 5) + 32).toFixed(
+              1
+            ),
+          };
+          setTemp(objTemp);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [inputValue]);
+
   return (
     <>
       {weather ? (
         <div className="app">
-          <WeatherCard weather={weather} temp={temp} />
+          <CurrentDate />
+          <WeatherCard
+            weather={weather}
+            temp={temp}
+            handleSubmit={handleSubmit}
+          />
         </div>
       ) : (
         <Loading />

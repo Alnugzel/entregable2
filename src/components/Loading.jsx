@@ -2,7 +2,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div class="loading" id="loading">
+    <div className="loading" id="loading">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 48.92 56.48"
