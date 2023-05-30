@@ -47,10 +47,6 @@ form {
   margin-bottom: 1em;
 }
 
-.current__date {
-  display: none;
-}
-
 .app {
   display: flex;
   flex-direction: column;
@@ -195,21 +191,6 @@ form {
   fill: hsl(354, 78%, 60%);
   width: 150px;
   animation: scroll 2s infinite;
-}
-
-@media (min-width: 700px) {
-  .current__date {
-    display: block;
-    position: absolute;
-    bottom: 1em;
-    color: black;
-    font-weight: 600;
-    padding: 1em 2em;
-    border-radius: 0.5em;
-    background-color: hsla(305, 25%, 90%, 0.5);
-    min-width: 350px;
-    text-align: center;
-  }
 }
 
 @keyframes scroll {

@@ -82,7 +82,6 @@ function App() {
     <>
       {weather ? (
         <div className="app">
-          <CurrentDate />
           <WeatherCard
             weather={weather}
             temp={temp}
