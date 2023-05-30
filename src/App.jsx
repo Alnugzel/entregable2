@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import WeatherCard from "./components/WeatherCard";
+import Loading from "./components/Loading";
 
 function App() {
   const apiKey = import.meta.env.VITE_WEATHER_APP_KEY;
@@ -32,7 +33,17 @@ function App() {
 
       axios
         .get(url)
-        .then((res) => setWeather(res.data))
+        .then((res) => {
+          setWeather(res.data);
+          const objTemp = {
+            celsius: +(res.data.main.temp - 273.15).toFixed(1),
+            farenheit: +((res.data.main.temp - 273.15) * (9 / 5) + 32).toFixed(
+              1
+            ),
+          };
+
+          setTemp(objTemp);
+        })
         .catch((err) => console.log(err));
     }
   }, [coords]);
@@ -40,12 +51,11 @@ function App() {
   return (
     <>
       {weather ? (
-        <div>
-          <h1>Aplicacion del Clima</h1>
-          <WeatherCard weather={weather} />
+        <div className="app">
+          <WeatherCard weather={weather} temp={temp} />
         </div>
       ) : (
-        "Loading"
+        <Loading />
       )}
     </>
   );
